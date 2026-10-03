@@ -1,0 +1,27 @@
+# hpma-data
+
+Data packages extracted from *Harry Potter: Magic Awakening* (HPMA, PC client)
+by the [HPMA-Research](https://github.com/ChanningWang2018) extraction
+toolchain. One directory per dataset; each dataset is self-contained
+(documentation, data, images, JSON Schemas, checksums) and versioned
+independently.
+
+## Datasets
+
+| Directory | Contents | Current version |
+|---|---|---|
+| [`spellbook/`](spellbook/) | In-game spellbook (魔咒书): 141 duel cards, zh/en text, level stats, card art, quality frames | v5.20261002.0 (schema 5, data 20261002) |
+
+## Consuming
+
+Per-dataset instructions in each directory's README. In short:
+
+1. **npm** — `hpma-spellbook-data` (published from `spellbook/`).
+2. **git submodule** — pin this repo at a `spellbook-vX.Y.Z` tag.
+3. **CI download** — fetch `hpma-spellbook-data-{ver}.zip` from the matching
+   GitHub Release and verify the `.sha256` file.
+
+## License
+
+Game-derived data, **not** open-source — see
+[LICENSE-NOTES.md](LICENSE-NOTES.md).

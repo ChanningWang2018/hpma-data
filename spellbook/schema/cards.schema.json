@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/ChanningWang2018/hpma-data/main/spellbook/schema/cards.schema.json",
+  "title": "HPMA 魔咒书 web 数据包 cards.json",
+  "description": "export_spellbook_web_bundle.py 产出的 141 张魔咒书卡数据契约；双语文案嵌套在 i18n，数值成长在 levels。v2 (2026-10-01)：levels 条目新增可选 unit（attr_sep 多单位分段），i18n desc 拼入 supplement_desc 补充规则段。v3 (2026-10-01)：i18n 双语补全——zh/en 增 tags、en 增 stats；levels 条目增可选 k_en/unit_en 英文对译（term_text_en）。v4 (2026-10-01)：显示名改查游戏表（ui_text），稀有度枚举码跟游戏词改名 forbidden→dark、brilliant→mythic（破坏性变更）。v5 (2026-10-02)：卡面统一 375x500 RGBA；新增顶层 frames 品质边框素材表（rarity→帧文件/尺寸/内窗 inner 矩形，书页正框——卡面填满 inner 后叠加框图）。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "data_version", "generated_at", "labels", "frames", "cards"],
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1, "description": "数据结构版本，字段增删导致消费端需改代码时 +1" },
+    "data_version": { "type": "integer", "minimum": 1, "description": "游戏内容刷新版本，与 manifest.json 一致" },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$",
+      "description": "ISO8601 带时区偏移，如 2026-09-30T23:47:10+08:00"
+    },
+    "frames": {
+      "type": "object",
+      "description": "品质边框素材表：键为稀有度枚举码，与 card.rarity 同枚举；帧图在 frames/ 目录（书页正框 208x272，框线内缩于画布——卡面 cover-fit 填满 inner 矩形后叠加框图即贴合）",
+      "propertyNames": { "enum": ["common", "rare", "epic", "legendary", "dark", "mythic"] },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "size", "inner"],
+        "properties": {
+          "file": { "type": "string", "pattern": "^frame_(common|rare|epic|legendary|dark|mythic)\\.png$", "description": "帧图文件名（frames/ 目录下）" },
+          "size": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2, "description": "帧图画布尺寸 [宽,高]" },
+          "inner": {
+            "type": "array", "minItems": 4, "maxItems": 4,
+            "description": "内窗矩形 [x,y,w,h]（帧图画布像素坐标）：卡面 cover-fit 填满该矩形（居中裁切），框图叠满整个画布",
+            "items": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "rarity"],
+      "properties": {
+        "type": {
+          "type": "object",
+          "required": ["spell", "summon", "companion"],
+          "propertyNames": { "enum": ["spell", "summon", "companion"] },
+          "additionalProperties": { "$ref": "#/definitions/labelText" }
+        },
+        "rarity": {
+          "type": "object",
+          "required": ["common", "rare", "epic", "legendary", "dark", "mythic"],
+          "propertyNames": { "enum": ["common", "rare", "epic", "legendary", "dark", "mythic"] },
+          "additionalProperties": { "$ref": "#/definitions/labelText" }
+        }
+      }
+    },
+    "cards": {
+      "type": "array",
+      "description": "按 id 升序",
+      "items": { "$ref": "#/definitions/card" }
+    }
+  },
+  "definitions": {
+    "labelText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zh", "en"],
+      "properties": {
+        "zh": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    },
+    "zhText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "desc", "quote", "stats", "tags"],
+      "properties": {
+        "name": { "type": ["string", "null"] },
+        "desc": { "type": ["string", "null"] },
+        "quote": { "type": ["string", "null"] },
+        "stats": { "type": ["string", "null"], "description": "属性面板文本（游戏中文原值），不是对象" },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "中文标签（card_desc_1/2），与顶层 tags 相同" }
+      }
+    },
+    "enText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "desc", "quote", "stats", "tags"],
+      "properties": {
+        "name": { "type": ["string", "null"] },
+        "desc": { "type": ["string", "null"] },
+        "quote": { "type": ["string", "null"] },
+        "stats": { "type": ["string", "null"], "description": "属性面板英文文本（stats 的同构对译，标签经 term_text_en）" },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "英文标签（EN 文本三表链同键 card_desc_1/2）" }
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "rarity", "cost", "img", "spell_word", "tags", "i18n"],
+      "properties": {
+        "id": { "type": "integer" },
+        "type": { "enum": ["spell", "summon", "companion"] },
+        "rarity": { "enum": ["common", "rare", "epic", "legendary", "dark", "mythic"] },
+        "cost": { "type": ["integer", "null"], "minimum": 0, "maximum": 16, "description": "实测值域 0..16；伙伴卡为 null" },
+        "img": { "type": "string", "pattern": "^images/\\d+\\.png$", "description": "相对数据包根目录的卡面图路径" },
+        "spell_word": { "type": ["string", "null"] },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "中文标签（zh 显示用，可为空数组；英文见 i18n.en.tags）" },
+        "i18n": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["zh", "en"],
+          "properties": {
+            "zh": { "$ref": "#/definitions/zhText" },
+            "en": { "$ref": "#/definitions/enText" }
+          }
+        },
+        "levels": {
+          "type": "object",
+          "description": "键为等级数字字符串（\"1\"~\"30\"，魔咒书游戏内上限；card_skill_attr 中 31+ 的行属其他玩法系统，不入包），值为该级属性条目数组",
+          "propertyNames": { "pattern": "^[1-9][0-9]*$" },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["k", "v", "pct"],
+              "properties": {
+                "k": { "type": "string", "description": "属性名，保留游戏中文原值" },
+                "k_en": { "type": "string", "description": "属性名英文对译（物业名源头为脚本 SKILL_ATTR_NAME，此处取 term_text_en 显示名，如 伤害→Damage）；无对译时省略" },
+                "v": { "type": ["number", "string"], "description": "数值或符号串（如 0.8、\"air&ground\"）" },
+                "pct": { "type": "boolean", "description": "该属性行是否为游戏魔咒书头部展示字段（card_skill_attr.battle_show）；字段名沿用 v1" },
+                "unit": { "type": "string", "description": "属性段单位名（card_skill_attr.attr_sep 衍生物/召唤物分段，如马尔福三人组的「德拉科·马尔福」「克拉布和高尔」）；单段卡无此字段" },
+                "unit_en": { "type": "string", "description": "属性段单位名英文对译（如 德拉科·马尔福→Draco Malfoy）；无对译时省略" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/ChanningWang2018/hpma-data/main/spellbook/schema/manifest.schema.json",
+  "title": "HPMA 魔咒书 web 数据包 manifest.json",
+  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "data_version", "generated_at", "locales", "image_spec", "source", "coverage", "notes"],
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1, "description": "与 cards.json 一致" },
+    "data_version": { "type": "integer", "minimum": 1, "description": "与 cards.json 一致" },
+    "generated_at": { "type": "string", "format": "date-time", "description": "ISO8601 带时区偏移" },
+    "locales": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["zh", "en"] }
+    },
+    "image_spec": { "type": "string", "description": "卡面图规格说明，如 375x500 RGBA PNG" },
+    "frame_spec": { "type": "string", "description": "品质边框（书页正框）规格说明（v5 起可选）；文件/尺寸/内窗矩形见 cards.json 顶层 frames" },
+    "source": {
+      "type": "object",
+      "description": "来源说明，自由结构",
+      "additionalProperties": {
+        "type": ["string", "array"],
+        "items": { "type": "string" }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cards", "images", "en_name", "en_desc", "en_quote", "en_tags", "en_stats", "missing_images"],
+      "properties": {
+        "cards": { "type": "integer", "minimum": 0 },
+        "images": { "type": "integer", "minimum": 0 },
+        "en_name": { "type": "integer", "minimum": 0 },
+        "en_desc": { "type": "integer", "minimum": 0 },
+        "en_quote": { "type": "integer", "minimum": 0 },
+        "en_tags": { "type": "integer", "minimum": 0, "description": "英文标签数与中文标签数一致的卡数" },
+        "en_stats": { "type": "integer", "minimum": 0, "description": "有英文属性面板文本（i18n.en.stats）的卡数" },
+        "missing_images": { "type": "array", "items": { "type": "integer" } }
+      }
+    },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}
