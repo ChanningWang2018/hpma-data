@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/ChanningWang2018/hpma-data/main/spellbook/schema/manifest.schema.json",
   "title": "HPMA 魔咒书 web 数据包 manifest.json",
-  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）。",
+  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）；2026-10-04 起可选 webp_images/webp_spec 与 coverage.images_webp（卡面 WebP 副本集，cards.json 结构不变）。",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "data_version", "generated_at", "locales", "image_spec", "source", "coverage", "notes"],
@@ -17,6 +17,8 @@
       "items": { "enum": ["zh", "en"] }
     },
     "image_spec": { "type": "string", "description": "卡面图规格说明，如 375x500 RGBA PNG" },
+    "webp_images": { "type": "string", "description": "卡面 WebP 副本集目录（相对本 manifest，如 images_webp/，尾斜杠结尾；2026-10-04 起可选）。缺省表示本包无 WebP 副本" },
+    "webp_spec": { "type": "string", "description": "WebP 副本规格说明（可选，随 webp_images 一起出现）" },
     "frame_spec": { "type": "string", "description": "品质边框（书页正框）规格说明（v5 起可选）；文件/尺寸/内窗矩形见 cards.json 顶层 frames" },
     "source": {
       "type": "object",
@@ -33,6 +35,7 @@
       "properties": {
         "cards": { "type": "integer", "minimum": 0 },
         "images": { "type": "integer", "minimum": 0 },
+        "images_webp": { "type": "integer", "minimum": 0, "description": "WebP 副本张数（可选，与 images/ 一一对应）" },
         "en_name": { "type": "integer", "minimum": 0 },
         "en_desc": { "type": "integer", "minimum": 0 },
         "en_quote": { "type": "integer", "minimum": 0 },

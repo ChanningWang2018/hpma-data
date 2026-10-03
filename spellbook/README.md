@@ -10,7 +10,7 @@ layer for consumers.
 
 ## Current version
 
-**v5.20261002.0** — version semantics (shared contract between producer, data
+**v5.20261004.0** — version semantics (shared contract between producer, data
 package and consumers):
 
 - `schema_version` (currently `1`) — data *structure* version; bumped when
@@ -18,8 +18,8 @@ package and consumers):
 - `data_version` (currently `1`) — *content* refresh counter starting at 1;
   bumped when a game update adds or changes cards, structure unchanged.
 - Release / npm version = `{schema_version}.{data_version}.0` — the npm minor
-  always equals the data generation. Current: **v5.20261002.0**
-  (schema 5, data 20261002); a game hot update bumping data to 2 becomes v1.2.0.
+  always equals the data generation. Current: **v5.20261004.0**
+  (schema 5, data 20261004); a game hot update bumping data to 2 becomes v1.2.0.
 - Git tags: `spellbook-v{version}` (e.g. `spellbook-v1.1.0`).
 
 ## Files
