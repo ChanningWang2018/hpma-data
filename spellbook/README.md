@@ -28,6 +28,9 @@ package and consumers):
   `i18n{zh,en}` name/desc/quote + per-level `levels` stats
 - `manifest.json` — versions, generated_at, coverage, source notes
 - `images/{id}.png` — card art, 375x500 transparent PNG
+- `images_webp/{id}.webp` — card art WebP copies (same names/resolution, q82;
+  2026-10-04 onwards — prefer these, fall back to PNG when absent)
+- `frames/frame_{rarity}.png` — straight quality-frame overlays (v5 onwards)
 - `schema/` — JSON Schema files for validating `cards.json` / `manifest.json`
 - `checksums.txt` — sha256 list; verify with `sha256sum -c checksums.txt`
 
