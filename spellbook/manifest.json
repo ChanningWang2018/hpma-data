@@ -1,0 +1,45 @@
+{
+ "schema_version": 5,
+ "data_version": 20261002,
+ "generated_at": "2026-10-03T02:13:44+08:00",
+ "locales": [
+  "zh",
+  "en"
+ ],
+ "image_spec": "375x500 RGBA PNG",
+ "frame_spec": "品质边框（书页正框）frames/frame_{rarity}.png （208x272 RGBA）：inner=内窗矩形 [x,y,w,h]，卡面 cover-fit 填满 inner（居中裁切），框图叠满画布",
+ "source": {
+  "game": "",
+  "card_table": "",
+  "spellbook_table": "",
+  "text_tables": [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "card_art": "",
+  "card_frames": ""
+ },
+ "coverage": {
+  "cards": 141,
+  "images": 141,
+  "en_name": 141,
+  "en_desc": 141,
+  "en_quote": 141,
+  "en_tags": 141,
+  "en_stats": 139,
+  "missing_images": []
+ },
+ "notes": [
+  "levels 属性键为游戏中文原值，k_en/unit_en 为  英文对译，无对译时省略该字段",
+  "levels 仅含 1~30 级（魔咒书游戏内上限）； 中 31+ 的行属其他玩法系统，不属于 spellbook，未入包，stats 汇总同口径",
+  "type/rarity 枚举码与游戏显示词同步（v4 起稀有度 5/6 为 dark/mythic，原 forbidden/brilliant）；显示名取自游戏 （..06、..4）",
+  "v5: frames 品质边框按 rarity 一一对应（common..mythic = ..06 书页正框，内窗全透明），消费端将卡面全幅铺底后叠加框图即为游戏内书页卡观感",
+  "en 字段缺失表示游戏英文表无对应文案（CN-first 文案）",
+  "仅供个人研究展示，卡面图与边框素材著作权属及版权方"
+ ]
+}
