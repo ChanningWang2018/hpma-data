@@ -10,7 +10,7 @@ independently.
 
 | Directory | Contents | Current version |
 |---|---|---|
-| [`spellbook/`](spellbook/) | In-game spellbook (魔咒书): 141 duel cards, zh/en text, level stats, card art, quality frames | v5.20261002.0 (schema 5, data 20261002) |
+| [`spellbook/`](spellbook/) | In-game spellbook (魔咒书): 141 duel cards, zh/en text, level stats, card art, quality frames | v6.20261004.0 (schema 6, data 20261004) |
 
 ## Consuming
 
