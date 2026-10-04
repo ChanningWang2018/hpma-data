@@ -2,13 +2,19 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/ChanningWang2018/hpma-data/main/spellbook/schema/manifest.schema.json",
   "title": "HPMA 魔咒书 web 数据包 manifest.json",
-  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）；2026-10-04 起可选 webp_images/webp_spec 与 coverage.images_webp（卡面 WebP 副本集，cards.json 结构不变）。",
+  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）；2026-10-04 起可选 webp_images/webp_spec 与 coverage.images_webp（卡面 WebP 副本集，cards.json 结构不变）。v6 (2026-10-04)：新增 face_attrs（魔咒书卡面头显属性名集合，运行时读自游戏 PageCardAttribute 常量元组），levels 重构详见 cards.schema.json。",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "data_version", "generated_at", "locales", "image_spec", "source", "coverage", "notes"],
+  "required": ["schema_version", "data_version", "generated_at", "locales", "face_attrs", "image_spec", "source", "coverage", "notes"],
   "properties": {
     "schema_version": { "type": "integer", "minimum": 1, "description": "与 cards.json 一致" },
     "data_version": { "type": "integer", "minimum": 1, "description": "与 cards.json 一致" },
+    "face_attrs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "魔咒书详情页卡面头显属性名集合（当前 hp/damage/shield/duration）：levels 行 attr_name ∈ face_attrs 即渲染为卡面大数字；与 levels.battle_show（悬停面板口径）互不相干。同字段镜像于 cards.json 顶层"
+    },
     "generated_at": { "type": "string", "format": "date-time", "description": "ISO8601 带时区偏移" },
     "locales": {
       "type": "array",
