@@ -16,10 +16,12 @@ independently.
 
 Per-dataset instructions in each directory's README. In short:
 
-1. **npm** — `hpma-spellbook-data` (published from `spellbook/`).
-2. **git submodule** — pin this repo at a `spellbook-vX.Y.Z` tag.
-3. **CI download** — fetch `hpma-spellbook-data-{ver}.zip` from the matching
+1. **git submodule** — pin this repo at a `spellbook-vX.Y.Z` tag.
+2. **CI download** — fetch `hpma-spellbook-data-{ver}.zip` from the matching
    GitHub Release and verify the `.sha256` file.
+
+npm (`hpma-spellbook-data`) is planned but **not yet published** — this
+README will link the package once the npm channel ships.
 
 ## License
 
