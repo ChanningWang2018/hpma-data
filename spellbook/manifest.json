@@ -7,7 +7,7 @@
   "duration"
  ],
  "data_version": 20261005,
- "generated_at": "2026-10-05T15:30:09+08:00",
+ "generated_at": "2026-10-05T16:29:54+08:00",
  "locales": [
   "zh",
   "en"
@@ -93,7 +93,7 @@
   }
  },
  "notes": [
-  "v8: echoes 增 characters[].deck（卡组构筑页可选回响标记，deck_echo_desc 成员 19 人=玩家可见回响总数；1009 为未投放的邓布利多影子表项）与顶层 rarity_backgrounds（四品质背景图，游戏 module/EchoUtil.get_echo_bg 同源），check 页主列表据此只展示 19 名并将图标叠品质底图",
+  "v8: echoes 增 characters[].deck（卡组构筑页可选回响标记，deck_echo_desc 成员 19 人=玩家可见回响总数；1009 为未投放的邓布利多影子表项）与顶层 rarity_backgrounds（四品质光环，ui.npk com_goods quality 图集 bg_huixiang_pingzhidi_01..04 帧，CommonGoodsItem.set_bg_rarity 同源），check 页主列表据此只展示 19 名并将头像叠品质光环",
   "v7: 新增平行数据集 echoes（回响，契约见 echoes.schema.json）——echoes.json + echo_images/ + echo_images_webp/，与 cards 域文件/ID/枚举全分立；manifest 增可选 datasets 注册表与 coverage.echoes；单轴版本契约不变（schema_version 6→7），cards.json 结构与 v6 完全一致",
   "v6: levels 条目重构为 {battle_show?, rows}——rows 与游戏 attr_val_list 逐行 1:1（不再按中文标签去重合并），battle_show 为游戏原字段原样（1-based 行位置，b 即 rows[b-1]，可能含越界脏值，消费端自行防御）",
   "v6: 卡面头显判定 = 行 attr_name ∈ 顶层 face_attrs（hp/damage/shield/duration，运行时读自游戏 PageCardAttribute 常量元组）；pct 字段删除——其语义本是把 battle_show 按 0-based 误读且误当卡面头显口径，两条游戏口径见 schema 说明",

@@ -1,7 +1,7 @@
 {
  "schema_version": 8,
  "data_version": 20261005,
- "generated_at": "2026-10-05T15:30:09+08:00",
+ "generated_at": "2026-10-05T16:29:54+08:00",
  "labels": {
   "rarity": {
    "1": {
@@ -27127,9 +27127,9 @@
   }
  ],
  "rarity_backgrounds": {
-  "1": "echo_images/pic_huixiang_yanwudi_001.png",
-  "2": "echo_images/pic_huixiang_yanwudi_002.png",
-  "3": "echo_images/pic_huixiang_yanwudi_003.png",
-  "4": "echo_images/pic_huixiang_yanwudi_004.png"
+  "1": "echo_images/bg_huixiang_pingzhidi_01.png",
+  "2": "echo_images/bg_huixiang_pingzhidi_02.png",
+  "3": "echo_images/bg_huixiang_pingzhidi_03.png",
+  "4": "echo_images/bg_huixiang_pingzhidi_04.png"
  }
 }
