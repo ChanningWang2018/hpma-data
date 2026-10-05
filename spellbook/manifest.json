@@ -1,13 +1,13 @@
 {
- "schema_version": 6,
+ "schema_version": 7,
  "face_attrs": [
   "hp",
   "damage",
   "shield",
   "duration"
  ],
- "data_version": 20261004,
- "generated_at": "2026-10-04T13:36:58+08:00",
+ "data_version": 20261005,
+ "generated_at": "2026-10-05T09:48:24+08:00",
  "locales": [
   "zh",
   "en"
@@ -16,10 +16,26 @@
  "webp_images": "images_webp/",
  "webp_spec": "卡面 WebP 副本集 images_webp/{id}.webp（375x500 q82，与 images/ 同名同分辨率）；消费端优先加载、失败回退 PNG",
  "frame_spec": "品质边框（书页正框）frames/frame_{rarity}.png （208x272 RGBA）：inner=内窗矩形 [x,y,w,h]，卡面 cover-fit 填满 inner（居中裁切），框图叠满画布",
+ "datasets": [
+  {
+   "id": "cards",
+   "file": "cards.json",
+   "count": 141
+  },
+  {
+   "id": "echoes",
+   "file": "echoes.json",
+   "count": 184
+  }
+ ],
+ "echo_image_spec": "回响图标 PNG（image.npk 原图直出，icon_huixiang_<角色拼音>_00<品质1..4/进化5> 命名，按源文件名去重）",
+ "echo_webp_images": "echo_images_webp/",
+ "echo_webp_spec": "回响图标 WebP 副本集 echo_images_webp/<同名>.webp（q82）；消费端优先加载、失败回退 PNG",
  "source": {
   "game": "哈利波特：魔法觉醒 PC 客户端 (NeoX)",
   "card_table": "dbx_new/card (via dbx_lib)",
   "spellbook_table": "out/spellbook.json (extract_spellbook.py)",
+  "echo_tables": "dbx_new/echo_* 等 14 张 (via dbx_lib, extract_echoes.py → out/echoes.json)",
   "text_tables": [
    "language_name_text_cn/_en",
    "language_text_cn/_en",
@@ -41,9 +57,43 @@
   "en_quote": 141,
   "en_tags": 141,
   "en_stats": 139,
-  "missing_images": []
+  "missing_images": [],
+  "echoes": {
+   "echoes": 184,
+   "characters": 46,
+   "affixes": 270,
+   "icons": 72,
+   "icons_webp": 72,
+   "en_name": 183,
+   "en_desc": 184,
+   "dangling_text_keys": 38,
+   "missing_icons": [
+    "image/echo/echo_icon/4131.png",
+    "image/echo/echo_icon/4141.png",
+    "image/echo/echo_icon/4231.png",
+    "image/echo/echo_icon/icon_huixiang_beila_005.png",
+    "image/echo/echo_icon/icon_huixiang_dengbuliduo_002.png",
+    "image/echo/echo_icon/icon_huixiang_dengbuliduo_005.png",
+    "image/echo/echo_icon/icon_huixiang_duobi_005.png",
+    "image/echo/echo_icon/icon_huixiang_filiwei_002.png",
+    "image/echo/echo_icon/icon_huixiang_filiwei_005.png",
+    "image/echo/echo_icon/icon_huixiang_haige_005.png",
+    "image/echo/echo_icon/icon_huixiang_hali_005.png",
+    "image/echo/echo_icon/icon_huixiang_hemin_005.png",
+    "image/echo/echo_icon/icon_huixiang_lideer_001.png",
+    "image/echo/echo_icon/icon_huixiang_lideer_005.png",
+    "image/echo/echo_icon/icon_huixiang_luna_002.png",
+    "image/echo/echo_icon/icon_huixiang_luna_005.png",
+    "image/echo/echo_icon/icon_huixiang_nawei_005.png",
+    "image/echo/echo_icon/icon_huixiang_niute_005.png",
+    "image/echo/echo_icon/icon_huixiang_sineipu_005.png",
+    "image/echo/echo_icon/icon_huixiang_weisilai_005.png",
+    "image/echo/echo_icon/icon_huixiang_xiaotianlangxing_005.png"
+   ]
+  }
  },
  "notes": [
+  "v7: 新增平行数据集 echoes（回响，契约见 echoes.schema.json）——echoes.json + echo_images/ + echo_images_webp/，与 cards 域文件/ID/枚举全分立；manifest 增可选 datasets 注册表与 coverage.echoes；单轴版本契约不变（schema_version 6→7），cards.json 结构与 v6 完全一致",
   "v6: levels 条目重构为 {battle_show?, rows}——rows 与游戏 attr_val_list 逐行 1:1（不再按中文标签去重合并），battle_show 为游戏原字段原样（1-based 行位置，b 即 rows[b-1]，可能含越界脏值，消费端自行防御）",
   "v6: 卡面头显判定 = 行 attr_name ∈ 顶层 face_attrs（hp/damage/shield/duration，运行时读自游戏 PageCardAttribute 常量元组）；pct 字段删除——其语义本是把 battle_show 按 0-based 误读且误当卡面头显口径，两条游戏口径见 schema 说明",
   "v6: 行增 attr_name=SKILL_ATTR_NAME 属性名（locale 无关稳定标识，未知 idx 省略）；k/k_en 为中文显示名与英文对译",

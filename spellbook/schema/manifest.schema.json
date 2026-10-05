@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/ChanningWang2018/hpma-data/main/spellbook/schema/manifest.schema.json",
   "title": "HPMA 魔咒书 web 数据包 manifest.json",
-  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）；2026-10-04 起可选 webp_images/webp_spec 与 coverage.images_webp（卡面 WebP 副本集，cards.json 结构不变）。v6 (2026-10-04)：新增 face_attrs（魔咒书卡面头显属性名集合，运行时读自游戏 PageCardAttribute 常量元组），levels 重构详见 cards.schema.json。",
+  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）；2026-10-04 起可选 webp_images/webp_spec 与 coverage.images_webp（卡面 WebP 副本集，cards.json 结构不变）。v6 (2026-10-04)：新增 face_attrs（魔咒书卡面头显属性名集合，运行时读自游戏 PageCardAttribute 常量元组），levels 重构详见 cards.schema.json。v7 (2026-10-05)：包内新增平行数据集 echoes（回响）——新增可选 datasets 注册表、coverage.echoes 与 echo_image_spec/echo_webp_images/echo_webp_spec；数据集文件与图目录相互独立（echoes.json + echo_images/，不与 cards 域交叉），详见 echoes.schema.json。",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "data_version", "generated_at", "locales", "face_attrs", "image_spec", "source", "coverage", "notes"],
@@ -25,6 +25,22 @@
     "image_spec": { "type": "string", "description": "卡面图规格说明，如 375x500 RGBA PNG" },
     "webp_images": { "type": "string", "description": "卡面 WebP 副本集目录（相对本 manifest，如 images_webp/，尾斜杠结尾；2026-10-04 起可选）。缺省表示本包无 WebP 副本" },
     "webp_spec": { "type": "string", "description": "WebP 副本规格说明（可选，随 webp_images 一起出现）" },
+    "datasets": {
+      "type": "array",
+      "description": "数据集注册表（v7 起，可选）：包内各数据集的机器可读索引。id 与文件一一对应，消费端按 id 取数，不从文件名或 id 数值范围推断类型",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "file", "count"],
+        "properties": {
+          "id": { "enum": ["cards", "echoes"] },
+          "file": { "type": "string", "description": "数据集文件名（相对本 manifest）" },
+          "count": { "type": "integer", "minimum": 0, "description": "主实体条数（cards=卡数，echoes=回响数）" }
+        }
+      }
+    },
+    "echo_image_spec": { "type": "string", "description": "回响图标规格说明（v7 起可选）" },
+    "echo_webp_images": { "type": "string", "description": "回响图标 WebP 副本集目录（如 echo_images_webp/，尾斜杠结尾；v7 起可选）" },
+    "echo_webp_spec": { "type": "string", "description": "回响图标 WebP 副本规格说明（可选，随 echo_webp_images 一起出现）" },
     "frame_spec": { "type": "string", "description": "品质边框（书页正框）规格说明（v5 起可选）；文件/尺寸/内窗矩形见 cards.json 顶层 frames" },
     "source": {
       "type": "object",
@@ -47,7 +63,24 @@
         "en_quote": { "type": "integer", "minimum": 0 },
         "en_tags": { "type": "integer", "minimum": 0, "description": "英文标签数与中文标签数一致的卡数" },
         "en_stats": { "type": "integer", "minimum": 0, "description": "有英文属性面板文本（i18n.en.stats）的卡数" },
-        "missing_images": { "type": "array", "items": { "type": "integer" } }
+        "missing_images": { "type": "array", "items": { "type": "integer" } },
+        "echoes": {
+          "type": "object",
+          "description": "echoes 数据集覆盖率（v7 起可选，声明了即与 echoes.json 一并校验）",
+          "additionalProperties": false,
+          "required": ["echoes", "characters", "affixes", "icons", "icons_webp", "en_name", "en_desc", "dangling_text_keys", "missing_icons"],
+          "properties": {
+            "echoes": { "type": "integer", "minimum": 0 },
+            "characters": { "type": "integer", "minimum": 0 },
+            "affixes": { "type": "integer", "minimum": 0 },
+            "icons": { "type": "integer", "minimum": 0, "description": "echo_images/ 张数" },
+            "icons_webp": { "type": "integer", "minimum": 0, "description": "echo_images_webp/ 张数" },
+            "en_name": { "type": "integer", "minimum": 0, "description": "有英文名的回响数" },
+            "en_desc": { "type": "integer", "minimum": 0, "description": "有英文主描述的回响数" },
+            "dangling_text_keys": { "type": "integer", "minimum": 0, "description": "悬空语言键数（字段置 null）" },
+            "missing_icons": { "type": "array", "items": { "type": "string" }, "description": "寻址失败的图标源路径" }
+          }
+        }
       }
     },
     "notes": { "type": "array", "items": { "type": "string" } }

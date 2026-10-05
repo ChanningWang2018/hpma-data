@@ -10,7 +10,7 @@ layer for consumers.
 
 ## Current version
 
-**v6.20261004.0** — version semantics (shared contract between producer, data
+**v7.20261005.0** — version semantics (shared contract between producer, data
 package and consumers):
 
 - `schema_version` — data *structure* version; bumped when fields change in a
@@ -19,7 +19,7 @@ package and consumers):
   bumped when a game update adds or changes cards, structure unchanged
   (currently `20261004`).
 - Release version = `{schema_version}.{data_version}.0`. Current:
-  **v6.20261004.0** (schema 6, data 20261004); a game hot update
+  **v7.20261005.0** (schema 7, data 20261005); a game hot update
   re-publishes as `v6.{new YYYYMMDD}.0`, a structure change as
   `v7.{date}.0`.
 - Git tags: `spellbook-v{version}` (e.g. `spellbook-v6.20261004.0`).
