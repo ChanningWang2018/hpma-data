@@ -1,7 +1,7 @@
 {
- "schema_version": 6,
- "data_version": 20261004,
- "generated_at": "2026-10-04T13:36:58+08:00",
+ "schema_version": 7,
+ "data_version": 20261005,
+ "generated_at": "2026-10-05T09:48:24+08:00",
  "face_attrs": [
   "hp",
   "damage",
