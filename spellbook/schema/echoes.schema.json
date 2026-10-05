@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/ChanningWang2018/hpma-data/main/spellbook/schema/echoes.schema.json",
   "title": "HPMA 魔咒书 web 数据包 echoes.json（回响数据集 v1）",
-  "description": "v7 (2026-10-05) 起与 cards.json 平行的第二个数据集：回响（Echo，禁林养成系统）。生产管线 extract_echoes.py（dbx 表 → zh 中间产物）→ export_spellbook_web_bundle.py（EN 三表链对译 + 图标落盘 echo_images/）。v1 数据源 14 张 dbx 表：echo_card/echo_character/echo_attributes/echo_attribute_class/echo_affix/echo_affix_battle/echo_level/echo_exp/echo_recycle/echo_cardchange/echo_reset_cost/echo_reset_unlock_cost/echo_reset_max/echo_score（2026-10-05 实测 0 行解码失败）。与 cards 的区分约定：①文件级——echoes.json 独立成文，图标进 echo_images/（不进 images/，两域各自与数据 1:1 校验）；②ID 空间——echo id 与 card id 数字上可能交叠，消费端不得按数值范围猜类型，跨集引用一律显式字段名（character_id 指向本文件 characters，card_id/derived.cards 指向 card 表 id）；③枚举——本数据集 rarity 为 int 1..4（白/蓝/紫/金，labels 查表），与 cards 的字符串枚举码不同。文案为游戏原文（含 <color>/<link> 富文本与 \\n，消费端自行渲染或剥离）；字段为 null 表示游戏语言表无对应文案（v1 实测悬空键 38 个，如 peak_huixiang_simple*、echo_open_desc10 等）。不进包（v2 候选）：echo_mapping、echo_perk、mini_wizard_echo*、new_newt_echo_config、echo_special_rules、echo_character_scale、获取途径（drop/forestis_auto_reward → reward 链）。物品 id 含义（economy.cost 内）：1216=回响晶石、1002=金币、1001=宝石。",
+  "description": "v7 (2026-10-05) 起与 cards.json 平行的第二个数据集：回响（Echo，禁林养成系统）。生产管线 extract_echoes.py（dbx 表 → zh 中间产物）→ export_spellbook_web_bundle.py（EN 三表链对译 + 图标落盘 echo_images/）。v1 数据源 14 张 dbx 表：echo_card/echo_character/echo_attributes/echo_attribute_class/echo_affix/echo_affix_battle/echo_level/echo_exp/echo_recycle/echo_cardchange/echo_reset_cost/echo_reset_unlock_cost/echo_reset_max/echo_score（2026-10-05 实测 0 行解码失败）。v8 (2026-10-05)：characters 增可选 deck 布尔（deck_echo_desc 成员=卡组构筑页可选回响，实测 19 人，即玩家可见的回响总数；非 deck 的 character/family 属图鉴外/活动/强化/未投放内容）；新增可选顶层 rarity_backgrounds（四品质背景图，游戏 module/EchoUtil.get_echo_bg 同源：image/echo/echo_rarity/pic_huixiang_yanwudi_001..004.png，190x190 灰/蓝/紫/金——消费端把回响图标叠在对应品质底图上即为游戏内观感；005/006 白金/黑金变体未随包时对应品质缺省）。与 cards 的区分约定：①文件级——echoes.json 独立成文，图标进 echo_images/（不进 images/，两域各自与数据 1:1 校验）；②ID 空间——echo id 与 card id 数字上可能交叠，消费端不得按数值范围猜类型，跨集引用一律显式字段名（character_id 指向本文件 characters，card_id/derived.cards 指向 card 表 id）；③枚举——本数据集 rarity 为 int 1..4（白/蓝/紫/金，labels 查表），与 cards 的字符串枚举码不同。文案为游戏原文（含 <color>/<link> 富文本与 \\n，消费端自行渲染或剥离）；字段为 null 表示游戏语言表无对应文案（v1 实测悬空键 38 个，如 peak_huixiang_simple*、echo_open_desc10 等）。不进包（v2 候选）：echo_mapping、echo_perk、mini_wizard_echo*、new_newt_echo_config、echo_special_rules、echo_character_scale、获取途径（drop/forestis_auto_reward → reward 链）。物品 id 含义（economy.cost 内）：1216=回响晶石、1002=金币、1001=宝石。",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "data_version", "generated_at", "labels", "characters", "echoes", "attribute_groups", "affixes", "growth", "economy", "card_echo_scores"],
@@ -148,6 +148,12 @@
           }
         }
       }
+    },
+    "rarity_backgrounds": {
+      "type": "object",
+      "description": "四品质背景图（v8 起可选）：键为 rarity int 的字符串形式，值为 echo_images/ 内的文件。游戏 module/EchoUtil.get_echo_bg 同源（pic_huixiang_yanwudi_001..004，190x190 与回响图标同尺寸）；消费端将图标叠加在对应品质底图上即为游戏内列表观感。品质底图缺失（热更未随包）时该品质缺省",
+      "propertyNames": { "enum": ["1", "2", "3", "4"] },
+      "additionalProperties": { "type": "string", "pattern": "^echo_images/[^/]+\\.png$" }
     }
   },
   "definitions": {
@@ -185,6 +191,7 @@
       "properties": {
         "id": { "type": "integer", "description": "echo_character id（1001..1046 / 1010xx / 2010xx）；echoes.character_id 指向这里" },
         "key": { "type": ["string", "null"], "description": "拉丁稳定标识（源 character_window，如 hermione/nute）" },
+        "deck": { "type": "boolean", "description": "卡组构筑页可选回响（deck_echo_desc 成员，v8 起；实测 19 人=玩家可见回响总数）。缺省 = 否" },
         "icon": { "type": ["string", "null"], "pattern": "^echo_images/[^/]+\\.png$" },
         "big_icon": { "type": ["string", "null"], "pattern": "^echo_images/[^/]+\\.png$" },
         "i18n": {

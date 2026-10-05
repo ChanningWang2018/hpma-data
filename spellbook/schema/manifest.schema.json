@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/ChanningWang2018/hpma-data/main/spellbook/schema/manifest.schema.json",
   "title": "HPMA 魔咒书 web 数据包 manifest.json",
-  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）；2026-10-04 起可选 webp_images/webp_spec 与 coverage.images_webp（卡面 WebP 副本集，cards.json 结构不变）。v6 (2026-10-04)：新增 face_attrs（魔咒书卡面头显属性名集合，运行时读自游戏 PageCardAttribute 常量元组），levels 重构详见 cards.schema.json。v7 (2026-10-05)：包内新增平行数据集 echoes（回响）——新增可选 datasets 注册表、coverage.echoes 与 echo_image_spec/echo_webp_images/echo_webp_spec；数据集文件与图目录相互独立（echoes.json + echo_images/，不与 cards 域交叉），详见 echoes.schema.json。",
+  "description": "export_spellbook_web_bundle.py 产出的数据包清单：版本、覆盖率统计与来源说明。v3 起覆盖率含 en_tags/en_stats；v4 起稀有度枚举码跟游戏词（dark/mythic）；v5 起含 frame_spec（品质边框规格）；2026-10-04 起可选 webp_images/webp_spec 与 coverage.images_webp（卡面 WebP 副本集，cards.json 结构不变）。v6 (2026-10-04)：新增 face_attrs（魔咒书卡面头显属性名集合，运行时读自游戏 PageCardAttribute 常量元组），levels 重构详见 cards.schema.json。v7 (2026-10-05)：包内新增平行数据集 echoes（回响）——新增可选 datasets 注册表、coverage.echoes 与 echo_image_spec/echo_webp_images/echo_webp_spec；数据集文件与图目录相互独立（echoes.json + echo_images/，不与 cards 域交叉），详见 echoes.schema.json。v8 (2026-10-05)：echoes 数据集增 characters[].deck 与 rarity_backgrounds（仅 echoes.json 结构变化，manifest 结构不变），见 echoes.schema.json。",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "data_version", "generated_at", "locales", "face_attrs", "image_spec", "source", "coverage", "notes"],

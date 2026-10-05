@@ -1,7 +1,7 @@
 {
- "schema_version": 7,
+ "schema_version": 8,
  "data_version": 20261005,
- "generated_at": "2026-10-05T09:48:24+08:00",
+ "generated_at": "2026-10-05T15:30:09+08:00",
  "labels": {
   "rarity": {
    "1": {
@@ -75,7 +75,8 @@
       "High Burst"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1002,
@@ -105,7 +106,8 @@
       "Field Clear"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1003,
@@ -135,7 +137,8 @@
       "Steady DPS"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1004,
@@ -165,7 +168,8 @@
       "Creatures Core"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1005,
@@ -195,7 +199,8 @@
       "Flexible"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1006,
@@ -225,7 +230,8 @@
       "Creature Swarm"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1007,
@@ -279,7 +285,8 @@
       "Creature Nemesis"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1009,
@@ -333,7 +340,8 @@
       "Low Burst"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1011,
@@ -361,7 +369,8 @@
       "Flexible Combo"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1012,
@@ -391,7 +400,8 @@
       "Rapid Damage"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1015,
@@ -421,7 +431,8 @@
       "Quick Return"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1021,
@@ -451,7 +462,8 @@
       "Quick Return"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1025,
@@ -481,7 +493,8 @@
       "Versatile"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1030,
@@ -511,7 +524,8 @@
       "High Mobility"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1034,
@@ -541,7 +555,8 @@
       "Powerful and Unpredictable"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1035,
@@ -571,7 +586,8 @@
       "Flexible Combo"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1036,
@@ -601,7 +617,8 @@
       "DMG Burst"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1037,
@@ -631,7 +648,8 @@
       "Powerful and Unpredictable"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 1038,
@@ -661,7 +679,8 @@
       "Companion Core"
      ]
     }
-   }
+   },
+   "deck": true
   },
   {
    "id": 101001,
@@ -27106,5 +27125,11 @@
     "101001": 100.0
    }
   }
- ]
+ ],
+ "rarity_backgrounds": {
+  "1": "echo_images/pic_huixiang_yanwudi_001.png",
+  "2": "echo_images/pic_huixiang_yanwudi_002.png",
+  "3": "echo_images/pic_huixiang_yanwudi_003.png",
+  "4": "echo_images/pic_huixiang_yanwudi_004.png"
+ }
 }
