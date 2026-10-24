@@ -1,29 +1,10 @@
 # hpma-data
 
-Data packages  from * Potter: * (HPMA, PC client)
-by the [](https://github.com/) 
-toolchain. One directory per dataset; each dataset is self-contained
-(documentation, data, images, JSON Schemas, checksums) and versioned
-independently.
+> **已归档停更（2026-10-24）**：本仓冻结只读，不再更新。
 
-## Datasets
-
-| Directory | Contents | Current version |
-|---|---|---|
-| [`spellbook/`](spellbook/) | In-game spellbook (魔咒书): 141 duel cards, zh/en text, level stats, card art, quality frames | v6.20261004.0 (schema 6, data 20261004) |
-
-## Consuming
-
-Per-dataset instructions in each directory's README. In short:
-
-1. **git submodule** — pin this repo at a `spellbook-vX.Y.Z` tag.
-2. **CI download** — fetch `hpma-spellbook-data-{ver}.zip` from the matching
-   GitHub Release and verify the `.sha256` file.
-
-npm (`hpma-spellbook-data`) is planned but **not yet published** — this
-README will link the package once the npm channel ships.
-
-## License
-
- data, **not** open-source — see
-[LICENSE-NOTES.md](LICENSE-NOTES.md).
+- 继任数据仓：[hpma-bits/hpma-spellbook](https://github.com/hpma-bits/hpma-spellbook)
+  （spellbook 数据拆分为 cards / echoes 两个平级模块，各自独立版本轴
+  `cards-v{S}.{D}.0` / `echoes-v{S}.{D}.0`）
+- 历史版本：见本仓 [Releases](../../releases)（tag `spellbook-v{S}.{D}.0`，
+  资产为 `hpma-spellbook-data-{ver}.zip` + `.sha256`）
+- 数据集说明：[`spellbook/README.md`](spellbook/README.md)

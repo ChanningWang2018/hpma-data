@@ -1,30 +1,7 @@
 # License Notes / 许可说明
 
-## English
+本仓库内容仅供个人学习研究，请勿商用；如有权利方异议，请联系删除。
 
-The contents of this repository (card artwork, in-game text, numeric data)
-are  from * Potter: *, copyright ****
-and the respective  Potter rights holders.
-
-- This dataset is **not** open-source and is **not** licensed under any open
-  license. Any code in the  toolchain may be MIT-licensed; that
-  license does **not** apply to this data.
-- Provided for **personal research and display only**. Commercial use is
-  prohibited. Redistribution of the card artwork is prohibited.
-- Factual data (card statistics, names, descriptions) is included as
-   from the game client for study purposes.
-
-If you are a rights holder and object to any content, please contact the
-repository owner for removal.
-
-## 中文
-
-本仓库内容(卡面图、游戏文案、数值数据)自《:》,
-著作权属****()及相应版权方。
-
-- 本数据包**不是**开源作品,不适用任何开源许可。生产工具链的代码可以按
-  MIT 等许可单独授权,但该授权**不**覆盖本数据。
-- 仅供**个人研究与展示**使用,禁止商业使用,禁止再分发卡面图源。
-- 数值与文案作为事实性数据按游戏原样收录,仅供学习研究。
-
-如你为版权方且对任何内容有异议,请联系仓库所有者删除。
+The content of this repository is provided for personal study and research
+only. Commercial use is prohibited. If you are a rights holder and object to
+any content here, please contact the repository owner for removal.

@@ -12,7 +12,7 @@
   "zh",
   "en"
  ],
- "image_spec": "375x500 RGBA PNG",
+ "image_spec": "375x500 RGBA PNG（cover 居中裁切）",
  "webp_images": "images_webp/",
  "webp_spec": "卡面 WebP 副本集 images_webp/{id}.webp（375x500 q82，与 images/ 同名同分辨率）；消费端优先加载、失败回退 PNG",
  "frame_spec": "品质边框（书页正框）frames/frame_{rarity}.png （208x272 RGBA）：inner=内窗矩形 [x,y,w,h]，卡面 cover-fit 填满 inner（居中裁切），框图叠满画布",
@@ -28,26 +28,9 @@
    "count": 184
   }
  ],
- "echo_image_spec": "回响图标 PNG（image 原图直出，icon_huixiang_<角色拼音>_00<品质1..4/进化5> 命名，按源文件名去重）",
+ "echo_image_spec": "回响图标 PNG（icon_huixiang_<角色拼音>_00<品质1..4/进化5> 命名，同名去重）",
  "echo_webp_images": "echo_images_webp/",
  "echo_webp_spec": "回响图标 WebP 副本集 echo_images_webp/<同名>.webp（q82）；消费端优先加载、失败回退 PNG",
- "source": {
-  "game": "",
-  "card_table": "",
-  "spellbook_table": "",
-  "echo_tables": "",
-  "text_tables": [
-   "",
-   "",
-   "",
-   "",
-   "",
-   "",
-   ""
-  ],
-  "card_art": "",
-  "card_frames": ""
- },
  "coverage": {
   "cards": 141,
   "images": 141,
@@ -93,16 +76,15 @@
   }
  },
  "notes": [
-  "v8: echoes 增 characters[].deck（卡组构筑页可选回响标记， 成员 19 人=玩家可见回响总数；1009 为未投放的邓布利多影子表项）与顶层 rarity_backgrounds（四品质光环，ui  quality 图集 bg_huixiang_pingzhidi_01..04 帧，. 同源），check 页主列表据此只展示 19 名并将头像叠品质光环",
+  "v8: echoes 增 characters[].deck（卡组构筑可选回响标记，实测 19 人）与顶层 rarity_backgrounds（四品质光环图 bg_huixiang_pingzhidi_01..04），check 页主列表据此只展示 19 名并将头像叠品质光环",
   "v7: 新增平行数据集 echoes（回响，契约见 echoes.schema.json）——echoes.json + echo_images/ + echo_images_webp/，与 cards 域文件/ID/枚举全分立；manifest 增可选 datasets 注册表与 coverage.echoes；单轴版本契约不变（schema_version 6→7），cards.json 结构与 v6 完全一致",
-  "v6: levels 条目重构为 {battle_show?, rows}——rows 与游戏  逐行 1:1（不再按中文标签去重合并），battle_show 为游戏原字段原样（1-based 行位置，b 即 rows[b-1]，可能含越界脏值，消费端自行防御）",
-  "v6: 卡面头显判定 = 行 attr_name ∈ 顶层 face_attrs（hp/damage/shield/duration，运行时读自游戏  常量元组）；pct 字段删除——其语义本是把 battle_show 按 0-based 误读且误当卡面头显口径，两条游戏口径见 schema 说明",
-  "v6: 行增 attr_name= 属性名（locale 无关稳定标识，未知 idx 省略）；k/k_en 为中文显示名与英文对译",
-  "levels 属性键为游戏中文原值，k_en/unit_en 为  英文对译，无对译时省略该字段",
-  "levels 仅含 1~30 级（魔咒书游戏内上限）； 中 31+ 的行属其他玩法系统，不属于 spellbook，未入包，stats 汇总同口径",
-  "type/rarity 枚举码与游戏显示词同步（v4 起稀有度 5/6 为 dark/mythic，原 forbidden/brilliant）；显示名取自游戏 （..06、..4）",
-  "v5: frames 品质边框按 rarity 一一对应（common..mythic = ..06 书页正框，内窗全透明），消费端将卡面全幅铺底后叠加框图即为游戏内书页卡观感",
-  "en 字段缺失表示游戏英文表无对应文案（CN-first 文案）",
-  "仅供个人研究展示，卡面图与边框素材著作权属及版权方"
+  "v6: levels 条目重构为 {battle_show?, rows}——rows 与数据集原始记录逐行 1:1（不再按中文标签去重合并），battle_show 为原始记录字段原样（1-based 行位置，b 即 rows[b-1]，可能含越界脏值，消费端自行防御）",
+  "v6: 卡面头显判定 = 行 attr_name ∈ 顶层 face_attrs（hp/damage/shield/duration）；pct 字段删除",
+  "v6: 行增 attr_name 属性名（locale 无关稳定标识，未知 idx 省略）；k/k_en 为中文显示名与英文对译",
+  "levels 属性键为数据集中文原值，k_en/unit_en 为英文对译，无对译时省略该字段",
+  "levels 仅含 1~30 级（魔咒书数据集上限）；原始记录中 31+ 的行属其他玩法系统，不属于 spellbook，未入包，stats 汇总同口径",
+  "type/rarity 枚举码与数据集显示词一致（v4 起稀有度 5/6 为 dark/mythic，原 forbidden/brilliant）",
+  "v5: frames 品质边框按 rarity 一一对应（common..mythic 六档书页正框，内窗全透明），消费端将卡面全幅铺底后叠加框图即为书页卡观感",
+  "en 字段缺失表示数据集无对应英文文案（CN-first 文案）"
  ]
 }

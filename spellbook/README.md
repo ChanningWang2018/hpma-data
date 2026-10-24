@@ -1,83 +1,32 @@
 # hpma-data/spellbook
 
-Standalone dataset from * Potter: * (HPMA): **141
-spellbook cards** plus — since v7 — a fully separate **echoes** dataset
-(184 echoes / 46 characters / 270 affixes / growth & economy tables),
-bilingual (zh/en), including artwork.
+数据集目录（本仓已归档冻结；继任仓
+[hpma-bits/hpma-spellbook](https://github.com/hpma-bits/hpma-spellbook)）。
 
- by the [](https://github.com/)
- toolchain (`` →
-`package_spellbook_bundle.py`); this directory is the published data-package
-layer for consumers.
+## 内容
 
-## Current version
+- `cards.json` — 魔咒书卡牌数据：141 条，zh/en 双语，含分级数值与图路径
+- `echoes.json` — 回响数据集：184 条 / 46 角色 / 270 词缀，与 cards 域分立
+- `manifest.json` — 版本与覆盖率清单（`datasets` 注册表 + `coverage`）
+- `images/`、`images_webp/`、`frames/` — 卡面图与品质边框
+- `echo_images/`、`echo_images_webp/` — 回响图标
+- `schema/` — JSON Schema（cards / manifest / echoes）
+- `checksums.txt` — sha256 清单，`sha256sum -c checksums.txt` 校验
+- `check.html` — 内置参考消费者，随发布 zip 附带（按 `manifest.json` 的
+  `datasets` 注册表加载数据并渲染，双数据集核对页）
 
-**v8.20261005.0** — version semantics (shared contract between , data
-package and consumers):
+## 版本轴
 
-- `schema_version` — data *structure* version; bumped when fields change in a
-  way that requires consumer code updates (see the header of the bundled
-  `schema/*.schema.json` files for the per-version changelog).
-- `data_version` — *content* refresh stamp (YYYYMMDD since 2026-10-01);
-  bumped when a game update adds or changes content, structure unchanged.
-- Release version = `{schema_version}.{data_version}.0`. Current:
-  **v8.20261005.0** (schema 8, data 20261005); a game hot update
-  re-publishes as `v7.{new YYYYMMDD}.0`, a structure change as
-  `v{S+1}.{date}.0`.
-- Git tags: `spellbook-v{version}` (e.g. `spellbook-v7.20261005.0`).
+Release / tag 版本 = `spellbook-v{schema_version}.{data_version}.0`
+（当前 `spellbook-v8.20261005.0`）：
 
-One version axis covers all datasets in this directory: the `datasets`
-registry in `manifest.json` lists what ships (id / file / count), and
-`cards.json` / `echoes.json` always carry the same `schema_version` +
-`data_version` pair as the manifest.
+- `schema_version` — 数据结构版本；消费端需改代码时 +1
+- `data_version` — 内容刷新版本（YYYYMMDD）
 
-## Files
+历史版本见本仓 [Releases](../../releases)；后续更新在继任仓按
+`cards-v{S}.{D}.0` / `echoes-v{S}.{D}.0` 双轴发布。
 
-- `cards.json` — card records: id/type/rarity/cost/img/spell_word/tags +
-  `i18n{zh,en}` name/desc/quote + per-level `levels` stats (v6: rows mirror
-  the game `` 1:1 with `attr_name`; face-stats set in top-level
-  `face_attrs`, hover picks in `levels.battle_show`)
-- `manifest.json` — versions, generated_at, coverage, source notes
-- `images/{id}.png` — card art, 375x500 transparent PNG
-- `images_webp/{id}.webp` — card art WebP copies (same names/resolution, q82;
-  2026-10-04 onwards — prefer these, fall back to PNG when absent)
-- `frames/frame_{rarity}.png` — straight quality-frame overlays (v5 onwards)
-- `echoes.json` — echo dataset (v7 onwards), fully disjoint from the cards
-  domain: `characters` (46) / `echoes` (184) / `attribute_groups` /
-  `affixes` (270) / `growth` / `economy` / `card_echo_scores`; echo IDs and
-  card IDs are independent spaces — never infer a record's type from its
-  numeric ID, use the `datasets` registry instead
-- `echo_images/` + `echo_images_webp/` — echo icons (named per source file;
-  icons missing from the game install are `null` and listed in
-  `manifest.coverage.echoes.missing_icons`)
-- `schema/` — JSON Schema files for validating `cards.json` /
-  `manifest.json` / `echoes.json`
-- `checksums.txt` — sha256 list; verify with `sha256sum -c checksums.txt`
+## 许可
 
-## Consuming
-
-1. **git submodule** — pin this repo at a `spellbook-vX.Y.Z` tag; the dataset
-   root is the `spellbook/` directory.
-2. **CI download** — fetch `hpma-spellbook-data-{ver}.zip` from the 's
-   GitHub Release (tag `spellbook-v{ver}`) and verify against the `.sha256`
-   file; the zip  to a `spellbook/` directory.
-
-An npm package (`hpma-spellbook-data`) is planned but **not yet published** —
-do not depend on it; this README will link the package once the channel
-ships.
-
-The  repo ships a **reference consumer** built in: the bundle's
-`check.html` (per-record manual verification page) loads data the way a
-consumer should — via the `manifest.json` `datasets` registry — and renders
-both datasets; it doubles as a living usage example of this contract.
-
-## Update flow
-
-Game hot update → rerun the  export →
-`package_spellbook_bundle.py` → `publish_spellbook_bundle.py` (push + GitHub
-Release; npm not yet enabled) → bump consumers.
-
-## License
-
- data, **not** open-source — see
-[../LICENSE-NOTES.md](../LICENSE-NOTES.md).
+仅供个人学习研究，请勿商用；如有权利方异议，请联系删除。
+见 [../LICENSE-NOTES.md](../LICENSE-NOTES.md)。
